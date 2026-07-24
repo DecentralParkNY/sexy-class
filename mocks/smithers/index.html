@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mhmm — say the whole messy thing</title>
+<style>
+  :root{
+    --ink:#2a1420;
+    --dusk:#3a1d30;
+    --rose:#ff6f9c;
+    --peach:#ffb08a;
+    --cream:#fff2ec;
+    --glow:#ff87b0;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Georgia',serif;
+    background:
+      radial-gradient(120% 90% at 20% 0%, #5a2440 0%, transparent 55%),
+      radial-gradient(130% 100% at 90% 100%, #7a3a2a 0%, transparent 50%),
+      linear-gradient(160deg,#2a1420,#150912);
+    color:var(--cream);
+    min-height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px 16px;
+    overflow-x:hidden;
+  }
+
+  .phone{
+    width:100%;
+    max-width:390px;
+    background:linear-gradient(180deg,rgba(58,29,48,.85),rgba(30,15,26,.95));
+    border:1px solid rgba(255,135,176,.22);
+    border-radius:38px;
+    padding:26px 22px 30px;
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06);
+    position:relative;
+    overflow:hidden;
+  }
+  .phone::before{
+    content:"";
+    position:absolute;left:50%;top:14px;transform:translateX(-50%);
+    width:96px;height:6px;border-radius:6px;background:rgba(255,255,255,.14);
+  }
+
+  .brand{
+    display:flex;align-items:baseline;gap:10px;margin-top:16px;
+  }
+  .logo{
+    font-family:'Georgia',serif;
+    font-size:40px;font-weight:bold;letter-spacing:-1px;
+    color:var(--cream);
+    text-shadow:0 0 26px rgba(255,135,176,.55);
+  }
+  .logo .dot{color:var(--rose)}
+  .tag{
+    font-size:11px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--peach);opacity:.8;font-family:sans-serif;
+  }
+
+  .pitch{
+    margin:20px 0 22px;
+    font-size:22px;line-height:1.3;font-style:italic;
+    color:var(--cream);
+  }
+  .pitch b{color:var(--glow);font-style:normal}
+
+  .feed{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+  .note{
+    background:linear-gradient(135deg,rgba(255,111,156,.16),rgba(255,176,138,.10));
+    border:1px solid rgba(255,135,176,.18);
+    border-radius:18px 18px 18px 6px;
+    padding:12px 15px;
+    font-size:15px;line-height:1.45;
+    position:relative;
+    animation:rise .6s ease both;
+  }
+  .note .who{
+    font-family:sans-serif;font-size:10px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--peach);opacity:.7;margin-bottom:4px;
+  }
+  .wave{display:flex;gap:3px;align-items:flex-end;height:16px;margin-top:8px}
+  .wave i{width:3px;background:var(--rose);border-radius:3px;opacity:.75;
+    animation:pulse 1.1s ease-in-out infinite}
+  @keyframes pulse{0%,100%{height:4px}50%{height:16px}}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .composer{
+    display:flex;align-items:center;gap:14px;
+    background:rgba(21,9,18,.6);
+    border:1px solid rgba(255,135,176,.2);
+    border-radius:26px;
+    padding:10px 12px;
+  }
+  .hint{font-size:13px;color:var(--cream);opacity:.65;flex:1;font-family:sans-serif}
+  .mic{
+    width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;
+    background:radial-gradient(circle at 35% 30%,var(--peach),var(--rose) 70%);
+    color:#2a1420;font-size:26px;
+    box-shadow:0 0 0 0 rgba(255,135,176,.6);
+    transition:transform .15s ease;
+    display:flex;align-items:center;justify-content:center;
+    flex:0 0 auto;
+  }
+  .mic:active{transform:scale(.92)}
+  .mic.live{animation:ring 1.2s infinite}
+  @keyframes ring{
+    0%{box-shadow:0 0 0 0 rgba(255,135,176,.55)}
+    100%{box-shadow:0 0 0 26px rgba(255,135,176,0)}
+  }
+  .status{
+    text-align:center;margin-top:14px;font-size:12px;font-family:sans-serif;
+    letter-spacing:1px;color:var(--peach);min-height:16px;opacity:.85;
+  }
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="brand">
+      <div class="logo">mhmm<span class="dot">.</span></div>
+      <div class="tag">say the whole thing</div>
+    </div>
+
+    <div class="pitch">The unfiltered running thought, <b>sent to the one person</b> who wants all of it.</div>
+
+    <div class="feed" id="feed">
+      <div class="note" style="animation-delay:.05s">
+        <div class="who">you · 2m</div>
+        okay whatever whatever. love you. yeah i can see you can do that
+        <div class="wave"><i style="animation-delay:0s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.05s"></i><i style="animation-delay:.25s"></i><i style="animation-delay:.15s"></i></div>
+      </div>
+      <div class="note" style="animation-delay:.2s">
+        <div class="who">you · now</div>
+        i don't really like walking… but i love you is on there. you look sexy tho. mhmm
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="hint">hold to just… say it out loud</div>
+      <button class="mic" id="mic" aria-label="record">🎙️</button>
+    </div>
+    <div class="status" id="status">no typing. no editing. just mhmm.</div>
+  </div>
+
+<script>
+  const mic = document.getElementById('mic');
+  const status = document.getElementById('status');
+  const feed = document.getElementById('feed');
+  const murmurs = [
+    "hey how are you over in class",
+    "mhmm… i love you it's okay that's sexy",
+    "don't overthink it. love you. bye",
+    "you looked good today. that's it. that's the note"
+  ];
+  let live = false, i = 0;
+
+  mic.addEventListener('click', ()=>{
+    live = !live;
+    mic.classList.toggle('live', live);
+    if(live){
+      status.textContent = "listening… say anything ●";
+    }else{
+      status.textContent = "sent 💌";
+      const n = document.createElement('div');
+      n.className = 'note';
+      n.innerHTML = '<div class="who">you · now</div>'+murmurs[i%murmurs.length]+
+        '<div class="wave"><i></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.05s"></i><i style="animation-delay:.25s"></i></div>';
+      feed.appendChild(n);
+      n.scrollIntoView({behavior:'smooth',block:'end'});
+      i++;
+      setTimeout(()=>{ if(!live) status.textContent="no typing. no editing. just mhmm."; }, 2200);
+    }
+  });
+</script>
+</body>
+</html>
